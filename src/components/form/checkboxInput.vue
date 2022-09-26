@@ -1,7 +1,25 @@
 <template>
-  <div v-if="item">
-    <label for="x-input">{{item.label}}</label>
-    <input id="x-input" :type="item.item_type" :class="item.class" v-model="value" :placeholder="item.placeholder">
+  <div v-if="item" class="form-group">
+    <label class="form-label" >
+      {{item.label}}
+    </label>
+    <div :class="(item.options && item.options.length >2)?'':'d-flex'">
+      <div class="form-check" v-for="(option, index) in item.options" :key="index">
+        <input
+          class="form-check-input"
+          type="radio"
+          :class="option.class"
+          :value="option.id"
+          :id="`radio${index}`"
+          name="radioInput"
+          @input="$emit('input', $event.target.value)"
+          :required="item.required"
+        >
+        <label class="form-check-label"  :for="`radio${index}`">
+          {{option.label}}
+        </label>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,12 +29,11 @@ export default {
   props: {
     item:{
       type: Object,
-      default: () => null
-    }
-  },
-  data() {
-    return {
-      value:this.item.value
+      default: () => {}
+    },
+    value: {
+      type: String,
+      default: null
     }
   }
 }

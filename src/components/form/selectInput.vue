@@ -1,22 +1,48 @@
 <template>
-  <div v-if="item">
-    <label for="x-input">{{item.label}}</label>
-    <input id="x-input" :type="item.item_type" :class="item.class" v-model="value" :placeholder="item.placeholder">
+  <div class="form-group" v-if="item">
+    <label class="text-start form-label" for="textInput">
+      {{ item.label }}
+    </label>
+    <select
+      class="form-select"
+      :class="item.class"
+      :value="value"
+      @input="$emit('input', $event.target.value)"
+      :required="item.required"
+    >
+      <option selected disabled value="">{{item.placeholder}}</option>
+      <option
+        v-for="(option, index) in item.options"
+        :key="index"
+        :value="option.id"
+      >
+      {{option.label}}
+      </option>
+    </select>
   </div>
+ 
 </template>
 
 <script>
 export default {
-  name: 'x-input',
+  name: "textInput",
   props: {
-    item:{
+    item: {
       type: Object,
-      default: () => null
-    }
-  }
-}
+      default: () => {},
+    },
+    value: {
+      type: String,
+      default: null,
+    },
+  },
+  data() {
+    return {};
+  },
+  methods: {},
+};
 </script>
 
 <style>
-
 </style>
+ 

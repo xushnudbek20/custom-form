@@ -1,26 +1,22 @@
 <template>
-  <div v-if="item">
-    <div v-for="(option, index) in item.options" :key="index">
-      <input
-        :id="`radio${index}`"
-        type="radio" :class="item.class"
-        :value="value"
-        checked
-      >
-      <label :for="`radio${index}`">{{item.label}}</label>
-    </div>
-    <!--  -->
-    <div class="flex d-flex justify-center">
-      <div class="form-check">
-        <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-        <label class="form-check-label inline-block text-gray-800" for="flexRadioDefault1">
-          Default radio
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-        <label class="form-check-label inline-block text-gray-800" for="flexRadioDefault1">
-          Default radio
+  <div v-if="item" class="form-group">
+    <label class="form-label" >
+      {{item.label}}
+    </label>
+    <div :class="(item.options && item.options.length >2)?'':'d-flex'">
+      <div class="form-check" v-for="(option, index) in item.options" :key="index">
+        <input
+          class="form-check-input"
+          type="radio"
+          :class="option.class"
+          :value="option.id"
+          :id="`radio${index}`"
+          name="radioInput"
+          @input="$emit('input', $event.target.value)"
+          :required="item.required"
+        >
+        <label class="form-check-label"  :for="`radio${index}`">
+          {{option.label}}
         </label>
       </div>
     </div>

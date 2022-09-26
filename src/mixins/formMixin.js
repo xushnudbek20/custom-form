@@ -5,5 +5,6 @@ export default {
     selectInput: ()=> import('@/components/form/selectInput.vue'),
     radioInput: ()=> import('@/components/form/radioInput.vue'),
     checkboxInput: ()=> import('@/components/form/checkboxInput.vue'),
+    phoneInput: ()=> import('@/components/form/phoneInput.vue'),
   }
 }
